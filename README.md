@@ -39,7 +39,7 @@ The system is implemented using **PyTorch** and deployed as an interactive **Str
 
 ---
 
-## 📊 Evaluation Metrics
+## Evaluation Metrics
 
 * **AUC (Area Under ROC Curve)** – overall discrimination capability
 * **Precision@K** – effectiveness of detecting top-K risky accounts
@@ -124,7 +124,7 @@ aml_tgnn_streamlit/
 
 ---
 
-## 👤 Author
+## Author
 
 **Basabraj Biswas**
 
