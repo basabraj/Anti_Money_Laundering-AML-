@@ -1,4 +1,4 @@
-# 🏦 Anti-Money Laundering using Temporal Graph Neural Networks (TGNN)
+#  Anti-Money Laundering using Temporal Graph Neural Networks (TGNN)
 
 ##  Project Overview
 
@@ -9,12 +9,12 @@ The system is implemented using **PyTorch** and deployed as an interactive **Str
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-* 📊 Transaction modeling as a **directed temporal graph**
-* 🧠 TGNN-style **message passing + GRU temporal learning**
-* 🔍 Detection of **suspicious accounts**
-* 📈 Model evaluation using **AUC** and **Precision@K**
+*  Transaction modeling as a **directed temporal graph**
+*  TGNN-style **message passing + GRU temporal learning**
+*  Detection of **suspicious accounts**
+*  Model evaluation using **AUC** and **Precision@K**
 
 ---
 
@@ -79,7 +79,7 @@ streamlit run app.py
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 aml_tgnn_streamlit/
@@ -95,7 +95,7 @@ aml_tgnn_streamlit/
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 * **Python**
 * **PyTorch**
