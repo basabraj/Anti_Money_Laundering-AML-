@@ -1,0 +1,9 @@
+# Virtual environment
+env1/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Uploads / runtime
+uploads/

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AML Risk Detection — Upload Transactions</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <style>
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #dcdcdc, #f3f3f3);
+      color: #222;
+      margin: 24px;
+    }
+
+    .card {
+      max-width: 920px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #1f2937;
+    }
+
+    p.lead {
+      color: #444;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .choose-btn {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .choose-btn:hover { background: #1d4ed8; }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    button.primary {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.primary:hover { background: #15803d; }
+
+    .result-normal {
+      background: #16a34a;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 999px;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .result-suspicious {
+      background: #dc2626;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 999px;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #444;
+      margin-top: 12px;
+    }
+
+    ul {
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>🏦 Anti-Money Laundering Risk Detection</h1>
+    <p class="lead">
+      Upload a <strong>transaction CSV file</strong> to identify
+      <strong>suspicious accounts</strong> using a Temporal Graph Neural Network.
+    </p>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <label>Upload Transaction File (CSV)</label>
+      <input name="file" type="file" accept=".csv" required />
+      <div class="controls">
+        <button type="submit" class="primary">Analyze Transactions</button>
+      </div>
+    </form>
+
+    {% if error %}
+      <p class="meta" style="color:#b91c1c;">⚠️ {{ error }}</p>
+    {% endif %}
+
+    {% if result %}
+      <hr>
+      <h3>{{ result }}</h3>
+
+      {% if suspicious_accounts|length > 0 %}
+        <span class="result-suspicious">Suspicious Accounts Detected</span>
+        <ul>
+          {% for acc in suspicious_accounts %}
+            <li><strong>{{ acc }}</strong></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <span class="result-normal">No Suspicious Accounts</span>
+      {% endif %}
+
+      <div class="meta">
+        <p><strong>Model:</strong> {{ model_name }}</p>
+        <p><strong>Confidence:</strong> {{ (confidence * 100) | round(2) }}%</p>
+      </div>
+
+      <div class="meta">
+        <h4>🧠 Model Reasoning</h4>
+        <ul>
+          <li>Analyzed transaction frequency and volume.</li>
+          <li>Captured temporal behavior using GRU memory.</li>
+          <li>Detected suspicious network interaction patterns.</li>
+          <li>Considered connectivity with high-risk accounts.</li>
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
