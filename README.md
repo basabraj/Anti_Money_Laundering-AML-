@@ -15,8 +15,6 @@ The system is implemented using **PyTorch** and deployed as an interactive **Str
 * 🧠 TGNN-style **message passing + GRU temporal learning**
 * 🔍 Detection of **suspicious accounts**
 * 📈 Model evaluation using **AUC** and **Precision@K**
-* 🌐 Interactive **Streamlit dashboard**
-* 📂 Supports **any banking transaction CSV dataset**
 
 ---
 
@@ -50,9 +48,8 @@ These metrics are displayed directly in the dashboard.
 
 ---
 
-## 🗂️ Dataset
+## Dataset
 
-* Supports **custom or synthetic AML datasets**
 * Example dataset used:
 
   * `manual_aml_1000x1000.csv` (synthetically generated)
@@ -130,10 +127,5 @@ aml_tgnn_streamlit/
 ## 👤 Author
 
 **Basabraj Biswas**
-M.Sc. Data Science & AI
-Mathematics Honours Graduate
 
-🔗 GitHub: [https://github.com/basabraj](https://github.com/basabraj)
-
----
-Just say the word 👍
+ GitHub: [https://github.com/basabraj](https://github.com/basabraj)
