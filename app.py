@@ -41,7 +41,7 @@ elif os.path.exists(demo_video):
 # Instructions
 with st.expander("📌 How to use this app — Click to expand"):
     st.markdown("""
-    ### ✅ CSV File Format
+    ###  CSV File Format
     Your CSV must contain **at least these 3 columns** (any naming is fine):
 
     | Column Type | Accepted Names |
@@ -50,7 +50,7 @@ with st.expander("📌 How to use this app — Click to expand"):
     | **Receiver** | receiver, to, dst, target |
     | **Amount** | amount, value, money, amt |
 
-    ### 📄 Example CSV:
+    ### Example CSV:
     ```
     sender,receiver,amount
     ACC001,ACC002,5000
@@ -58,13 +58,13 @@ with st.expander("📌 How to use this app — Click to expand"):
     ACC003,ACC001,9500
     ```
 
-    ### ⚠️ Rules:
+    ###  Rules:
     - File must be **.csv** format
     - Max file size: **200MB**
     - Each row = one transaction
     - Use the **Risk Threshold** slider to adjust sensitivity
 
-    ### 🧠 Optional SAML-D-style Columns
+    ### Optional SAML-D-style Columns
     If your CSV also includes any of these (like the [SAML-D dataset](https://www.kaggle.com/datasets/berkanoztas/synthetic-transaction-monitoring-dataset-aml)),
     they're automatically used as extra model features:
     `Payment_type`, `Payment_currency`, `Received_currency`,
@@ -114,7 +114,7 @@ class AML_TGNN(nn.Module):
 # -----------------------------------------------------
 # 4️⃣ File Upload
 # -----------------------------------------------------
-uploaded_file = st.file_uploader("📂 Upload Transaction CSV", type=["csv"])
+uploaded_file = st.file_uploader("Upload Transaction CSV", type=["csv"])
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
@@ -122,7 +122,7 @@ if uploaded_file is not None:
     st.subheader("📄 Dataset Preview")
     st.dataframe(df.head())
 
-    st.link_button("📊 Open Insights Dashboard", INSIGHTS_DASHBOARD_URL)
+    st.link_button("Insights", INSIGHTS_DASHBOARD_URL)
 
     # Auto-detect columns
     sender_col = find_column(df, ["sender", "from", "src", "origin"])
