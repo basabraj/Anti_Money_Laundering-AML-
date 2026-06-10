@@ -6,11 +6,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import networkx as nx
-import torch
+import torch,pickle
 import torch.nn as nn
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_auc_score
 
+
+#pickle_in = open('model.pkl','rb')
+#classifier = pickle.load(pickle_in)
 # -----------------------------------------------------
 # 1️⃣ Page Config
 # -----------------------------------------------------
@@ -21,6 +24,33 @@ st.markdown(
     "Upload a **transaction CSV** to detect **suspicious accounts** "
     "using a **Temporal Graph Neural Network (TGNN-style)** model."
 )
+
+# Instructions
+with st.expander("📌 How to use this app — Click to expand"):
+    st.markdown("""
+    ### ✅ CSV File Format
+    Your CSV must contain **at least these 3 columns** (any naming is fine):
+
+    | Column Type | Accepted Names |
+    |---|---|
+    | **Sender** | sender, from, src, origin |
+    | **Receiver** | receiver, to, dst, target |
+    | **Amount** | amount, value, money, amt |
+
+    ### 📄 Example CSV:
+    ```
+    sender,receiver,amount
+    ACC001,ACC002,5000
+    ACC002,ACC003,12000
+    ACC003,ACC001,9500
+    ```
+
+    ### ⚠️ Rules:
+    - File must be **.csv** format
+    - Max file size: **200MB**
+    - Each row = one transaction
+    - Use the **Risk Threshold** slider to adjust sensitivity
+    """)
 
 # -----------------------------------------------------
 # 2️⃣ Helper: Auto-detect column names
