@@ -79,6 +79,25 @@ streamlit run app.py
 
 ---
 
+## Insights Dashboard (Next.js)
+
+A companion analytics dashboard for exploring AML transaction data — built with **Next.js**, **Tailwind CSS**, and **Recharts**.
+
+* **Live demo:** [insights-dashboard-indol.vercel.app](https://insights-dashboard-indol.vercel.app)
+* CSV files are parsed and analyzed **entirely in the browser** (via a Web Worker) — nothing is uploaded to a server, so even multi-gigabyte files work
+* Sections: Overview, Transaction Graph, Fraud Accounts, Transactions
+* Supports optional SAML-D-style columns (`Payment_type`, `Payment_currency`, `Sender_bank_location`, `Receiver_bank_location`, `Is_laundering`) as extra risk-scoring features
+
+### Run Locally
+
+```bash
+cd insights-dashboard
+npm install
+npm run dev
+```
+
+---
+
 ## Project Structure
 
 ```bash
@@ -89,6 +108,7 @@ aml_tgnn_streamlit/
 ├── templates/             # UI templates
 ├── uploads/               # Uploaded datasets (ignored in Git)
 ├── model.pkl              # Saved TGNN model
+├── insights-dashboard/    # Next.js companion dashboard (deployed on Vercel)
 ├── README.md              # Project documentation
 └── .gitignore
 ```
