@@ -50,14 +50,16 @@ These metrics are displayed directly in the dashboard.
 
 ## Dataset
 
-* Example dataset used:
-
-  * `manual_aml_1000x1000.csv` (synthetically generated)
 * Expected CSV format:
 
   ```csv
   sender,receiver,amount,timestamp
   ```
+
+* Additional public datasets for training/testing:
+
+  * [IBM Transactions for Anti Money Laundering (AML)](https://www.kaggle.com/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml)
+  * [Synthetic Transaction Monitoring Dataset AML](https://www.kaggle.com/datasets/berkanoztas/synthetic-transaction-monitoring-dataset-aml)
 
 ---
 
