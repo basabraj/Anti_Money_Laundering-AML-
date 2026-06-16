@@ -9,4 +9,6 @@ __pycache__/
 uploads/
 *.xlsx
 *.csv
+# Allow bundled demo datasets served from the insights-dashboard
+!insights-dashboard/public/demo/*.csv
 *.claude

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 import { motion, AnimatePresence } from "motion/react"
 import {
   BarChart3, Share2, ShieldAlert, ArrowLeftRight, ChevronRight,
-  Upload, AlertTriangle, DollarSign, Users, Target,
+  Upload, AlertTriangle, DollarSign, Users, Target, Database, CreditCard,
 } from "lucide-react"
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
@@ -147,6 +147,21 @@ function SectionHeader({ title, subtitle, children }: { title: string; subtitle:
 
 // ─── Upload prompt ───────────────────────────────────────────────
 
+const DEMO_DATASETS = [
+  {
+    file: "/demo/manual-aml-1000.csv",
+    name: "AML Transactions",
+    meta: "1,000 rows · multi-feature",
+    Icon: Database,
+  },
+  {
+    file: "/demo/creditcard-fraud-5k.csv",
+    name: "Credit Card Fraud",
+    meta: "5,000 rows · 9.8% fraud",
+    Icon: CreditCard,
+  },
+]
+
 function UploadPrompt({
   isLoading, progress, error, onFileSelect,
 }: {
@@ -154,10 +169,24 @@ function UploadPrompt({
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [demoLoading, setDemoLoading] = useState<string | null>(null)
 
   const handleFiles = (files: FileList | null) => {
     const file = files?.[0]
     if (file) onFileSelect(file)
+  }
+
+  const loadDemo = async (filename: string) => {
+    setDemoLoading(filename)
+    try {
+      const res = await fetch(filename)
+      if (!res.ok) throw new Error("Failed to load demo dataset")
+      const blob = await res.blob()
+      const name = filename.split("/").pop() ?? "demo.csv"
+      onFileSelect(new File([blob], name, { type: "text/csv" }))
+    } finally {
+      setDemoLoading(null)
+    }
   }
 
   return (
@@ -235,6 +264,40 @@ function UploadPrompt({
             </div>
           )}
         </div>
+
+        {/* Demo datasets */}
+        {!isLoading && (
+          <div className="mt-5">
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-white/10" />
+              <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-muted-foreground font-sans">
+                or try a demo dataset
+              </span>
+              <div className="flex-1 h-px bg-white/10" />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {DEMO_DATASETS.map(({ file, name, meta, Icon }) => (
+                <button
+                  key={file}
+                  type="button"
+                  onClick={() => loadDemo(file)}
+                  disabled={isLoading || demoLoading !== null}
+                  className="flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/4 hover:bg-chart-3/8 hover:border-chart-3/25 transition-colors duration-150 px-3 py-2.5 text-left disabled:opacity-50"
+                >
+                  <div className="mt-0.5 size-6 rounded-lg bg-chart-3/12 border border-chart-3/20 flex items-center justify-center shrink-0">
+                    {demoLoading === file
+                      ? <Spinner className="size-3 text-chart-3" />
+                      : <Icon className="size-3 text-chart-3" />}
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold text-foreground font-sans leading-tight">{name}</p>
+                    <p className="text-[10px] text-muted-foreground font-sans mt-0.5">{meta}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {error && (
           <Alert variant="destructive" className="mt-5">
